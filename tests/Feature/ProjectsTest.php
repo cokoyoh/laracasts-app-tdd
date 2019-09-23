@@ -14,9 +14,20 @@ class ProjectsTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
+    public function only_authenticated_users_can_create_projects()
+    {
+        $attributes = raw(Project::class);
+
+        $this->post('projects', $attributes)
+            ->assertRedirect('login');
+    }
+
+    /** @test */
     public function a_user_can_create_projects()
     {
         $this->withoutExceptionHandling();
+
+        $this->signIn();
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -45,6 +56,8 @@ class ProjectsTest extends TestCase
     /** @test */
     public function a_project_requires_a_title()
     {
+        $this->signIn();
+
         $attributes = factory(Project::class)->raw(['title' => '']);
 
         $this->post('projects', $attributes)
@@ -55,6 +68,8 @@ class ProjectsTest extends TestCase
     /** @test */
     public function a_project_requires_a_description()
     {
+        $this->signIn();
+
         $attributes = factory(Project::class)->raw(['description' => '']);
 
         $this->post('projects', $attributes)
