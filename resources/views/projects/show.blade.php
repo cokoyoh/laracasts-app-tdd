@@ -10,15 +10,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 </head>
 <body>
-    <h1>Birdboard</h1>
-
-    @forelse($projects as $project)
-        <li>
-            <a href="{!! $project->path() !!}">{!! $project->title !!}</a>
-        </li>
-    @empty
-        <li>No projects yet</li>
-    @endforelse
+<h1>Birdboard</h1>
+   <h1> {!! $project->title !!}</h1>
+    <div>{!! $project->description !!}</div>
 </body>
 </html>
 
