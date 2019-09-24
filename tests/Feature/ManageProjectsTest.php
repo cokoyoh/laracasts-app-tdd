@@ -7,6 +7,7 @@ namespace Tests\Feature;
 use App\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ManageProjectsTest extends TestCase
@@ -61,15 +62,13 @@ class ManageProjectsTest extends TestCase
 
         $this->get($project->path())
             ->assertSee($project->title)
-            ->assertSee($project->description);
+            ->assertSee(Str::limit($project->description, 100));
     }
 
     /** @test */
     public function an_authenticated_user_cannot_view_the_projects_of_others()
     {
         $this->signIn();
-
-//        $this->withoutExceptionHandling();
 
         $project =  create(Project::class);
 
