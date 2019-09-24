@@ -603,6 +603,19 @@ video {
   height: auto;
 }
 
+.button {
+  background-color: #63b3ed;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-shadow: 0 2px 7px #b0eaff;
+}
+
 .container {
   width: 100%;
 }
