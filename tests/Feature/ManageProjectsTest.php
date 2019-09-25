@@ -7,7 +7,6 @@ namespace Tests\Feature;
 use App\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ManageProjectsTest extends TestCase
@@ -39,14 +38,56 @@ class ManageProjectsTest extends TestCase
 
         $attributes = [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph
+            'description' => $this->faker->sentence,
+            'notes' => 'General note here.'
         ];
 
-        $this->post('projects', $attributes)->assertRedirect('/projects/1');
+        $response = $this->post('projects', $attributes);
+
+        $project = Project::where($attributes)->first();
+
+        $response->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+            ->assertSee($project->title)
+            ->assertSee($project->description)
+            ->assertSee($project->notes);
+    }
+
+    /** @test */
+    public function a_user_can_update_a_project()
+    {
+        $this->signIn();
+
+        $this->withoutExceptionHandling();
+
+        $project =  create(Project::class, [
+            'owner_id' => auth()->id()
+        ]);
+
+        $this->patch($project->path(), [
+            'notes' => 'Changed'
+        ])->assertRedirect($project->path());
+
+        $this->assertDatabaseHas('projects', [
+            'notes' => 'Changed'
+        ]);
+    }
+
+    /** @test */
+    public function a_user_can_only_update_their_project()
+    {
+        $this->signIn();
+
+        $project = create(Project::class);
+
+        $this->patch($project->path(), [
+            'notes' => 'changed'
+        ])->assertStatus(403);
+
+        $this->assertDatabaseMissing('projects', ['notes' => 'changed']);
     }
 
     /** @test */
