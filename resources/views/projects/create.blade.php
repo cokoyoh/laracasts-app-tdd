@@ -2,30 +2,30 @@
 
 @section('content')
     <div class="flex justify-center">
-        <div class="card w-1/2">
+        <div class="card w-3/4">
             <form method="post" action="/projects">
                 @csrf
 
                 <h1 class="text-gray-700 mb-4 text-lg">Create a Project</h1>
 
-                <div class="mb-4">
-                    <label for="title" class="text-gray-700 mb-6">Title</label>
+                <div>
+                    <label for="title" class="text-gray-700 font-normal text-lg">Title</label>
 
                     <div class="">
-                        <input type="text" class="w-full card" name="title" placeholder="Title">
+                        <input type="text" class="w-full card mt-3 mb-3" name="title" placeholder="Title...">
                     </div>
                 </div>
 
-                <div class="mb-4">
-                    <label for="description" class="text-gray-700 mb-4">Description</label>
+                <div>
+                    <label for="description" class="text-gray-700 mb-3 text-lg">Description</label>
 
                     <div class="">
-                        <textarea class="w-full card" name="description" placeholder="Description" rows="5"> </textarea>
+                        <textarea class="w-full card mt-3 mb-3" name="description" placeholder="Description..." rows="5"> </textarea>
                     </div>
                 </div>
 
-                <div class="">
-                    <div class="flex content-center ">
+                <div>
+                    <div class="flex content-center mt-4 ">
                         <button type="submit" class="button mr-5">Create Project</button>
                         <a href="/projects" class="py-2 text-gray-500">Cancel</a>
                     </div>
