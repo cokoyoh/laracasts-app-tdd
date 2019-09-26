@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-2xl font-normal mb-10 text-center">
-        Let's start something new
-    </h1>
-    <form method="post"
-          action="/projects"
-          class="lg:w-1/2 lg:mx-auto bg-white p-6 md:py-12 md:px-6 rounded shadow">
-        @include('projects.partials.form', [
-            'project' => new App\Project,
-            'buttonText' => 'Create Project'
-        ])
-    </form>
+    <div class="lg:w-1/2 lg:mx-auto bg-white p-6 md:py-12 md:px-6 rounded shadow">
+        <h1 class="text-2xl font-normal mb-10 text-center">
+            Let's start something new
+        </h1>
+        <form method="post"
+              action="/projects">
+            @include('projects.partials.form', [
+                'project' => new App\Project,
+                'buttonText' => 'Create Project'
+            ])
+        </form>
+    </div>
 @endsection
