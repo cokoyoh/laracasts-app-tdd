@@ -7,6 +7,7 @@ namespace Tests\Feature;
 use App\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Facades\Tests\Setup\ProjectFactory;
 use Tests\TestCase;
 
 class ManageProjectsTest extends TestCase
@@ -30,8 +31,6 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_create_projects()
     {
-        $this->withoutExceptionHandling();
-
         $this->signIn();
 
         $this->get('/projects/create')->assertStatus(200);
@@ -48,8 +47,6 @@ class ManageProjectsTest extends TestCase
 
         $response->assertRedirect($project->path());
 
-        $this->assertDatabaseHas('projects', $attributes);
-
         $this->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description)
@@ -59,17 +56,11 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_update_a_project()
     {
-        $this->signIn();
+        $project = ProjectFactory::create();
 
-        $this->withoutExceptionHandling();
-
-        $project =  create(Project::class, [
-            'owner_id' => auth()->id()
-        ]);
-
-        $this->patch($project->path(), [
-            'notes' => 'Changed'
-        ])->assertRedirect($project->path());
+        $this->actingAs($project->owner)
+            ->patch($project->path(), ['notes' => 'Changed'])
+            ->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', [
             'notes' => 'Changed'
@@ -83,9 +74,8 @@ class ManageProjectsTest extends TestCase
 
         $project = create(Project::class);
 
-        $this->patch($project->path(), [
-            'notes' => 'changed'
-        ])->assertStatus(403);
+        $this->patch($project->path(), ['notes' => 'changed'])
+            ->assertStatus(403);
 
         $this->assertDatabaseMissing('projects', ['notes' => 'changed']);
     }
@@ -93,15 +83,10 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function a_user_can_view_their_project()
     {
-        $this->signIn();
+        $project =  ProjectFactory::create();
 
-        $this->withoutExceptionHandling();
-
-        $project =  create(Project::class, [
-            'owner_id' => auth()->id()
-        ]);
-
-        $this->get($project->path())
+        $this->actingAs($project->owner)
+            ->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description);
     }

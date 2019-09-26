@@ -25,7 +25,7 @@
                         Password
                     </label>
                     <input
-                        class="shadow appearance-none border border-red-500 rounded w-full
+                        class="shadow appearance-none border rounded w-full
                         py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                         required autocomplete="current-password"
                         name="password" id="password"
@@ -48,7 +48,7 @@
                 </div>
             </form>
             <p class="text-center text-gray-500 text-xs">
-                &copy;2019 All rights reserved.
+                &copy;{!! now()->year !!} All rights reserved.
             </p>
         </div>
     </div>
