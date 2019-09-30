@@ -1,1 +1,1 @@
-You in completed a task
+You incompleted "{!! $activity->subject->body !!}"
