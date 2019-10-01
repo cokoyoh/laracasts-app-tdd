@@ -32,10 +32,4 @@
     <a href="{!! $project->path() !!}" class="py-2 text-gray-500">Cancel</a>
 </div>
 
-@if($errors->any())
-<div class="field">
-    @foreach($errors->all() as $error)
-        <li class="text-sm text-red-700">{!! $error !!}</li>
-    @endforeach
-</div>
-@endif
+@include('errors')
