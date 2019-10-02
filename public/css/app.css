@@ -616,6 +616,21 @@ video {
   box-shadow: 0 2px 7px #b0eaff;
 }
 
+.button-outlined {
+  background-color: transparent;
+  color: #2b6cb0;
+  font-size: 0.875rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  border-width: 1px;
+  border-color: #4299e1;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  box-shadow: 0 2px 7px #b0eaff;
+}
+
 .card {
   background-color: #fff;
   padding: 1.25rem;
