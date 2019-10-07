@@ -13,4 +13,4 @@
 
     @include('errors', ['bag' => 'invitations'])
 
-</div>
+</div> 

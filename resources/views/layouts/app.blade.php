@@ -42,30 +42,32 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 @endif
                             @else
-                                <a
-                                    id="navbarDropdown"
-                                    class="flex items-center no-underline text-sm py-2"
-                                    href="#"
-                                    role="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    v-pre
-                                >
-                                    <img
-                                        src="{!! gravatar_url(auth()->user()->email) !!}"
-                                        width="35"
-                                        class="rounded-full mr-3">
-                                    {{ Auth::user()->name }}
-                                </a>
+
+                                <dropdown align="right" width="200px">
+
+                                    <template v-slot:trigger>
+
+                                        <button
+                                            class="flex items-center no-underline text-sm py-2 focus:outline-none"
+                                        >
+                                            <img
+                                                src="{!! gravatar_url(auth()->user()->email) !!}"
+                                                width="35"
+                                                class="rounded-full mr-3">
+                                            {{ Auth::user()->name }}
+                                        </button>
+
+                                    </template>
+
+                                    <form id="logout-form" action="/logout" method="post">
+                                        @csrf
+                                        <button type="submit" class="dropdown-menu-link w-full text-left">Logout</button>
+                                    </form>
+
+                                </dropdown>
+
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-{{--                                        <a class="dropdown-item" href="{{ route('logout') }}"--}}
-{{--                                           onclick="event.preventDefault();--}}
-{{--                                                     document.getElementById('logout-form').submit();">--}}
-{{--                                            {{ __('Logout') }}--}}
-{{--                                        </a>--}}
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                           style="display: none;">
                                         @csrf

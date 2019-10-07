@@ -1,0 +1,9 @@
+.button {
+    @apply bg-blue-400 text-white no-underline rounded-lg text-sm py-2 px-5;
+    box-shadow: 0 2px 7px #b0eaff;
+}
+
+.button-outlined {
+    @apply bg-transparent text-blue-700 text-sm py-2 px-5 border border-blue-500 rounded-lg no-underline;
+    box-shadow: 0 2px 7px #b0eaff;
+}
