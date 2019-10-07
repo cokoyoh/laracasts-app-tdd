@@ -10,10 +10,10 @@
 
                         <input type="text" id="title" name="title"
                                class="input bg-white border border-gray-300 rounded py-1 px-2 text-xm block w-full"
-                               :class="errors.title ? 'border-red-500' : 'border-gray-500'"
+                               :class="form.errors.title ? 'border-red-500' : 'border-gray-500'"
                                v-model="form.title"
                         >
-                        <span class="text-xs italic text-red-700" v-if="errors.title" v-text="errors.title[0]"></span>
+                        <span class="text-xs italic text-red-700" v-if="form.errors.title" v-text="form.errors.title[0]"></span>
 
                     </div>
 
@@ -22,12 +22,12 @@
 
                         <textarea id="description" name="description"
                                   class="input bg-white border border-gray-300 rounded py-1 px-2 text-xm block w-full"
-                                  :class="errors.description ? 'border-red-500' : 'border-gray-500'"
+                                  :class="form.errors.description ? 'border-red-500' : 'border-gray-500'"
                                   rows="5"
                                   v-model="form.description"
                         ></textarea>
 
-                        <span class="text-xs italic text-red-700" v-if="errors.description" v-text="errors.description[0]"></span>
+                        <span class="text-xs italic text-red-700" v-if="form.errors.description" v-text="form.errors.description[0]"></span>
                     </div>
                 </div>
 
@@ -61,19 +61,20 @@
 </template>
 
 <script>
+    import BirdboardForm from './BirdboardForm'
+
     export default {
         name: 'new-project-modal',
 
         data() {
             return {
-               form: {
+               form: new BirdboardForm({
                    title: '',
                    description: '',
                    tasks: [
                        {body: ''},
                    ]
-               },
-                errors: {}
+               }),
             }
         },
 
@@ -83,9 +84,12 @@
             },
 
             submit() {
-                axios.post('/projects', this.form)
-                    .then((response) => location = response.data.message)
-                    .catch((error) => this.errors = error.response.data.errors);
+                if(! this.form.tasks[0].body) {
+                    delete this.form.originalData.tasks;
+                }
+
+                this.form.submit('/projects')
+                    .then(response => location = response.data.message);
             }
         }
     }
