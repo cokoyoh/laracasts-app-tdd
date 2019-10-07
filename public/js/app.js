@@ -1908,7 +1908,7 @@ __webpack_require__.r(__webpack_exports__);
         title: '',
         description: '',
         tasks: [{
-          value: ''
+          body: ''
         }]
       },
       errors: {}
@@ -1916,9 +1916,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addTask: function addTask() {
-      w;
       this.form.tasks.push({
-        value: ''
+        body: ''
       });
     },
     submit: function submit() {
@@ -37373,20 +37372,20 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: task.value,
-                          expression: "task.value"
+                          value: task.body,
+                          expression: "task.body"
                         }
                       ],
                       staticClass:
                         "input bg-white border border-gray-300 rounded py-1 px-2 mb-2 text-xm block w-full",
                       attrs: { type: "text", placeholder: "Task 1" },
-                      domProps: { value: task.value },
+                      domProps: { value: task.body },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(task, "value", $event.target.value)
+                          _vm.$set(task, "body", $event.target.value)
                         }
                       }
                     })
@@ -37397,6 +37396,7 @@ var render = function() {
                     {
                       staticClass:
                         "button text-xs mt-2 inline-flex items-center",
+                      attrs: { type: "button" },
                       on: { click: _vm.addTask }
                     },
                     [
@@ -37416,6 +37416,7 @@ var render = function() {
               "button",
               {
                 staticClass: "button-outlined mr-4 text-xs",
+                attrs: { type: "button" },
                 on: {
                   click: function($event) {
                     return _vm.$modal.hide("new-project")
