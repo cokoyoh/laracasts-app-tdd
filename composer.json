@@ -46,7 +46,7 @@
             "Tests\\": "tests/"
         },
         "files": [
-            "tests/utilities/utils.php"
+            "tests/Utilities/utils.php"
         ]
     },
     "minimum-stability": "dev",
