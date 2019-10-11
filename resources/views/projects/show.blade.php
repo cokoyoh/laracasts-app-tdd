@@ -37,7 +37,7 @@
                                @method('patch')
                                @csrf
                               <div class="flex">
-                                  <input type="text" name="body" value="{!! $task->body !!}" class="w-full {!! $task->completed ? 'text-gray-500' : '' !!}">
+                                  <input type="text" name="body" value="{!! $task->body !!}" class="w-full {!! $task->completed ? 'text-gray-500 line-through' : '' !!}">
                                   <input type="checkbox" name="completed" onchange="this.form.submit()" {!! $task->completed ? 'checked' : '' !!}>
                               </div>
                            </form>
