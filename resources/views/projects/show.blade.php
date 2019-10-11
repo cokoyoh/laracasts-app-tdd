@@ -60,12 +60,10 @@
                       @csrf
 
                       <textarea
-                          class="card w-full mb-4 justify-start"
+                          class="card w-full mb-4 justify-start form-textarea mt-1"
                           style="min-height: 200px"
                           name="notes"
-                          placeholder="Anyting useful that you want to make a note about...">
-                          {!! $project->notes !!}
-                      </textarea>
+                          placeholder="Anyting useful that you want to make a note about...">{!! $project->notes !!}</textarea>
 
                       <button type="submit" class="button">Save</button>
                   </form>
