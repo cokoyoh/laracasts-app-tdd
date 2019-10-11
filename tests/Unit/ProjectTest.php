@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Project;
+use App\Task;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -48,6 +49,20 @@ class ProjectTest extends TestCase
         $project->invite($user = create(User::class));
 
         $this->assertTrue($project->members->contains($user));
+    }
+
+    /** @test */
+    public function it_can_access_the_last_five_activities()
+    {
+        $project = create(Project::class);
+
+        create(Task::class, ['project_id' => $project->id], 6);
+
+        $this->assertCount(7, $project->activity);
+
+        $latestActivities = $project->activities(5);
+
+        $this->assertEquals(5, $latestActivities->count());
     }
 }
 

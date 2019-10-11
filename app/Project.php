@@ -40,6 +40,11 @@ class Project extends Model
         return $this->hasMany(Activity::class)->latest();
     }
 
+    public function activities($number = 5)
+    {
+        return $this->activity()->take($number)->get();
+    }
+
     public function invite(User $user)
     {
         return $this->members()->attach($user);
